@@ -285,5 +285,28 @@ a {
   .product-list {
     @include grid-layout(4);
     gap: 5px;
+
+    .product-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.2s ease;
+
+      &.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .button-container {
+    @include flex-center();
+    margin: 20px;
+
+    .view-all-button {
+      @include button-style($secondary-color, 15px 10px);
+      text-transform: uppercase;
+      color: white;
+      font-weight: bold;
+    }
   }
 }

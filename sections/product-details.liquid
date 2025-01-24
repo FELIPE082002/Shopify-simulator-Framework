@@ -1,7 +1,46 @@
 <section class="product-details">
   <div class="product-list">
     {% for product in products %}
-      {% render 'product-card', product: product %}
+      <div class="product-item" data-index="{{ forloop.index }}">
+        {% render 'product-card', product: product %}
+      </div>
     {% endfor %}
   </div>
+  <button id="view-all-button" class="view-all-button">View All</button>
 </section>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+  const productItems = document.querySelectorAll(".product-item");
+  const viewAllButton = document.getElementById("view-all-button");
+
+  productItems.forEach((item, index) => {
+    if (index >= 4) {
+      item.style.display = "none"; 
+    }
+  });
+
+  viewAllButton.addEventListener("click", function () {
+    productItems.forEach((item, index) => {
+      if (index >= 4) {
+        item.style.display = "block";
+      }
+    });
+    viewAllButton.style.display = "none"; 
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  productItems.forEach((item) => observer.observe(item));
+});
+
+</script>
