@@ -1,0 +1,56 @@
+<section class="header">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const header = document.querySelector('.header');
+
+      // Detecta el scroll y aplica el estado sticky
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.remove('header--no_sticky');
+          header.classList.add('header--sticky');
+        } else {
+          header.classList.add('header--no_sticky');
+          header.classList.remove('header--sticky');
+        }
+      });
+    });
+  </script>
+
+  <header class="header">
+    <div class="header__content">
+      <!-- Logo -->
+      <div class="header__column header__logo">
+        <a href="/">
+          {% comment %} <img src="path-to-logo.png" alt="Shuffle Store Logo" class="header__logo-img"> {% endcomment %}
+          <div>SHUFLEE</div>
+          <div>|</div>
+          <div>LOGO</div>
+        </a>
+      </div>
+
+      <!-- Iconos de medios de pago -->
+      <div class="header__column header__payment">
+        <div class="header__payment-iconlist">
+          <span class="header__payment-text">We Accept</span>
+          <div class="header__payment-icons">
+            <div class="icon-bitcoin">
+              <i class="fab fa-bitcoin fa-2xs"></i>
+            </div>
+            <div class="icon-ethereum">
+              <i class="fab fa-ethereum fa-2xs"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Links y carrito -->
+      <div class="header__column header__menu">
+        <a href="#featured-products" class="header__link">All Products</a>
+        <a href="#collections" class="header__link">Collections</a>
+        <button class="header__cart">
+          <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+</section>
