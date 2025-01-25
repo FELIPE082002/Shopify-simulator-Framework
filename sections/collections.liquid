@@ -1,0 +1,19 @@
+{% assign filtered_collections = collections | where_exp: 'item', "item.created_at > '2025-01-01'" %}
+
+<section class="collections">
+  <div class="collections_content">
+    <div class="collections_title">
+      <span>✦</span>
+      <h2>LATEST COLLECTION</h2>
+      <span>✦</span>
+    </div>
+    <div class="collections_list">
+      {% for collection in filtered_collections %}
+        <div class="collections_list_item" data-index="{{ forloop.index }}">
+          <img src="{{ collection.image }}" alt="{{ collection.title }}">
+          <h3 class="collections_list_item_title">{{ collection.title }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -4,6 +4,7 @@ $secondary-color: #762bfb;
 $background: #101010;
 $max-width: 1200px;
 $card-product-size: 220px;
+$card-collection-size: 220px;
 
 // Mixins
 @mixin flex-center($direction: row, $justify: center, $align: center) {
@@ -303,10 +304,64 @@ a {
     margin: 20px;
 
     .view-all-button {
-      @include button-style($secondary-color, 15px 10px);
+      @include button-style($primary-color, 15px 10px);
       text-transform: uppercase;
       color: white;
       font-weight: bold;
+    }
+  }
+}
+
+// Collections
+.collections {
+
+  &_content {
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+  }
+
+  &_title {
+    @include flex-center(row);
+    gap: 10px;
+    width: 100%;
+    font-size: 2rem;
+    margin: 20px 0;
+    text-align: center;
+
+    span{
+      font-size: 4rem;
+      color: $primary-color;
+    }
+  }
+
+  &_list {
+    @include grid-layout(2);
+
+    gap: 20px;
+    margin-top: 20px;
+
+    &_item {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        max-width: 100%;
+        aspect-ratio: 4 / 2;
+        object-fit: cover;
+        transform: scale(1.4);
+      }
+
+      &_title {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        z-index: 10;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
     }
   }
 }
