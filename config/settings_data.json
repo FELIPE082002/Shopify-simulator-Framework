@@ -20,6 +20,7 @@
     "footer": {
       "type": "footer",
       "settings": {
+        "bottom_banner" : "assets/homepage_bottom_banner.avif",
         "logo_text": "MyShopify",
         "links": [
           { "label": "Home", "url": "/" },

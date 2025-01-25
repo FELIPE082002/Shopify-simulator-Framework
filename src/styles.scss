@@ -391,7 +391,20 @@ a {
 
 // Footer
 .footer {
-  @include flex-center();
+  @include flex-center(column);
+
+  &_image {
+    @include flex-center();
+    margin: 20px 0;
+
+    img {
+      border-radius: 10px;
+      max-width: $max-width;
+      aspect-ratio: 6/2;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
 
   &_content {
     @include grid-layout(4);
