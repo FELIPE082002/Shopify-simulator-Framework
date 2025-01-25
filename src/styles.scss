@@ -53,13 +53,12 @@ a {
 
 // Header
 .header {
+  @include flex-center();
   position: sticky;
   top: 0;
   z-index: 1000;
   transition: background-color 0.3s ease;
-  padding: 0px 10px;
-  max-width: $max-width;
-  margin: 0 auto;
+  width: 100%;
 
   &--sticky {
     background: rgba(255, 255, 255, 0.026);
@@ -73,7 +72,9 @@ a {
   &__content {
     @include grid-layout(3);
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 0;
+    max-width: $max-width;
+    width: 100%;
 
     @include responsive(768px) {
       flex-direction: column;
@@ -93,8 +94,22 @@ a {
   &__logo {
     justify-content: left;
 
-    img {
-      height: 40px;
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    .divider {
+      width: 2px;
+      height: 1.5rem;
+      background-color: $primary-color;
+      display: inline-block;
+      margin: 0 0.5rem;
+    }
+
+    .text {
+      font-family: $font-title;
+      font-size: 1.4em;
     }
   }
 
@@ -466,8 +481,22 @@ a {
     gap: 10px;
     font-size: 0.7rem;
 
-    img {
-      height: 40px;
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    .divider {
+      width: 2px;
+      height: 1.5rem;
+      background-color: $primary-color;
+      display: inline-block;
+      margin: 0 0.5rem;
+    }
+
+    .text {
+      font-family: $font-title;
+      font-size: 1.4em;
     }
   }
 }
