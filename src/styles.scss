@@ -37,6 +37,12 @@ $font-title: 'Anton', sans-serif;
   padding: $padding;
 }
 
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
 // Global Styles
 body {
   font-family: Arial, sans-serif;
@@ -67,6 +73,12 @@ a {
 
   &--no_sticky {
     background-color: rgb(30, 29, 32);
+  }
+
+  &_link {
+    @include responsive(768px) {
+      display: none;
+    }
   }
 
   &__content {
@@ -142,19 +154,54 @@ a {
         }
       }
     }
+
+    @include responsive(768px) {
+      visibility: hidden; // Ocultar en pantallas pequeñas
+    }
   }
 
   &__menu {
     @include flex-center(row, flex-end);
     gap: 15px;
 
-    button {
-      @include button-style($secondary-color);
+    &--toggle {
+      display: none;
+    }
 
-      icon {
-        font-size: 20px;
-        color: #fff;
+    @include responsive(768px) {
+      flex-direction: column;
+      align-items: flex-end;
+
+      &--toggle {
+        display: block;
       }
+    }
+  }
+
+  &__dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: rgb(30, 29, 32);
+    border: 1px solid #6c52fc;
+    border-radius: 5px;
+    z-index: 2000;
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+
+    @include responsive(768px) {
+      display: none; // Ocultar por defecto
+    }
+
+    &--open {
+      display: flex;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
     }
   }
 }
@@ -196,6 +243,12 @@ a {
       height: auto;
       object-fit: cover;
       max-height: 500px;
+
+      @include responsive(768px) {
+        max-width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+      }
     }
 
     .hero-banner_cta {
@@ -213,6 +266,10 @@ a {
 
         &:hover {
           background-color: $secondary-color;
+        }
+
+        @include responsive(768px) {
+          display: none;
         }
       }
     }

@@ -2,6 +2,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const header = document.querySelector('.header');
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuDropdown = document.getElementById('menu-dropdown');
 
       // Detecta el scroll y aplica el estado sticky
       window.addEventListener('scroll', () => {
@@ -12,6 +14,11 @@
           header.classList.add('header--no_sticky');
           header.classList.remove('header--sticky');
         }
+      });
+
+      // Menú desplegable
+      menuToggle.addEventListener('click', () => {
+        menuDropdown.classList.toggle('header__dropdown--open');
       });
     });
   </script>
@@ -46,6 +53,13 @@
       <div class="header__column header__menu">
         <a href="#featured-products" class="header__link">All Products</a>
         <a href="#collections" class="header__link">Collections</a>
+        <button id="menu-toggle" class="header__menu--toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div id="menu-dropdown" class="header__dropdown">
+          <a href="#featured-products">All Products</a>
+          <a href="#collections">Collections</a>
+        </div>
         <button class="header__cart">
           <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
         </button>
