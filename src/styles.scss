@@ -1,0 +1,596 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+
+// Variables
+$primary-color: #7a2cff;
+$secondary-color: #762bfb;
+$input-color: #232127;
+$background: #101010;
+$max-width: 1200px;
+$card-product-size: 220px;
+$card-collection-size: 220px;
+$font-title: 'Anton', sans-serif;
+
+// Mixins
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin grid-layout($columns: 3) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+}
+
+@mixin button-style($bg-color, $padding: 10px 15px, $radius: 10%) {
+  background-color: $bg-color;
+  border: none;
+  border-radius: $radius;
+  padding: $padding;
+}
+
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Global Styles
+body {
+  font-family: Arial, sans-serif;
+  background-color: $background;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Header
+.header {
+  @include flex-center();
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+  width: 100%;
+
+  &--sticky {
+    background: rgba(255, 255, 255, 0.026);
+    backdrop-filter: blur(7px);
+  }
+
+  &--no_sticky {
+    background-color: rgb(30, 29, 32);
+  }
+
+  &__content {
+    @include grid-layout(3);
+    align-items: center;
+    padding: 10px 0;
+    max-width: $max-width;
+    width: 100%;
+
+    @include responsive(768px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  &__column {
+    @include flex-center(row, flex-start);
+    gap: 15px;
+
+    a {
+      display: flex;
+    }
+  }
+
+  &__logo {
+    justify-content: left;
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    .divider {
+      width: 2px;
+      height: 1.5rem;
+      background-color: $primary-color;
+      display: inline-block;
+      margin: 0 0.5rem;
+    }
+
+    .text {
+      font-family: $font-title;
+      font-size: 1.4em;
+    }
+  }
+
+  &__payment {
+    @include flex-center();
+
+    &-iconlist {
+      @include flex-center(row);
+      gap: 10px;
+      background-color: #121212;
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #6c52fc;
+    }
+
+    &-text {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    &-icons {
+      @include flex-center(row, space-between);
+      gap: 10px;
+
+      icon {
+        padding: 10px;
+
+        &-ethereum {
+          background-color: $secondary-color;
+        }
+      }
+    }
+
+    @include responsive(768px) {
+      visibility: hidden;
+    }
+  }
+
+  &__menu {
+    @include flex-center(row, flex-end);
+    gap: 15px;
+
+    button {
+      @include button-style($secondary-color);
+
+      icon {
+        font-size: 20px;
+        color: #fff;
+      }
+    }
+
+    @include responsive(768px) {
+      a{
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+// Top Bar
+.top-bar {
+  background-color: $secondary-color;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 12px;
+
+  marquee {
+    display: block;
+    width: 100%;
+  }
+}
+
+// Hero Section
+.hero-banner {
+  @include flex-center();
+  padding: 20px 0;
+  position: relative;
+
+  &_content {
+    @include flex-center();
+    max-width: $max-width;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  &_image {
+    @include flex-center();
+    position: relative;
+
+    img {
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      max-height: 500px;
+
+      @include responsive(768px) {
+        max-width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+      }
+    }
+
+    .hero-banner_cta {
+      position: absolute;
+      bottom: 30px;
+      left: 20px;
+      z-index: 10;
+      text-transform: uppercase;
+      font-weight: bold;
+
+      .btn--primary {
+        @include button-style($primary-color, 20px 30px, 10px);
+
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: $secondary-color;
+        }
+
+        @include responsive(768px) {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// Top Bar
+.hero-banner-marquee {
+  padding: 5px;
+  text-transform: uppercase;
+  font-family: $font-title;
+  font-size: 50px;
+  font-weight: bolder;
+}
+
+// Product Card
+.product-card {
+  @include flex-center(column);
+
+  &_image {
+    max-width: $card-product-size;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid $primary-color;
+    border-radius: 10px;
+
+    img {
+      max-width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.1);
+    }
+  }
+
+  &_content {
+    @include flex-center(row, space-between);
+    max-width: $card-product-size;
+    width: 100%;
+    padding: 10px 0;
+
+    &_info {
+      @include flex-center(column, none, flex-start);
+      font-size: 0.5rem;
+      gap: 5px;
+
+      &_text {
+        margin: 1px;
+      }
+
+      &_tags {
+        display: flex;
+        gap: 5px;
+
+        .tag {
+          background-color: $primary-color;
+          border: 1px solid $primary-color;
+          border-radius: 50px;
+          padding: 2.5px 5px;
+          text-align: center;
+        }
+      }
+    }
+
+    &_cta {
+      button {
+        @include button-style($secondary-color, 10px 10px, 50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        icon {
+          font-size: 20px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// Product Details
+.product-details {
+  max-width: $max-width;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+
+  .product-list-wrapper {
+    overflow: hidden;
+
+    .product-list {
+      @include grid-layout(4);
+      gap: 5px;
+
+      .product-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.5s ease, transform 0.3s ease;
+
+        &.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+          flex: 0 0 80%;
+          margin-right: 10px;
+          scroll-snap-align: center;
+        }
+      }
+    }
+  }
+
+  .button-container {
+    @include flex-center();
+    margin: 20px;
+
+    .view-all-button {
+      @include button-style($primary-color, 15px 10px);
+      text-transform: uppercase;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+// Collections
+.collections {
+
+  &_content {
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+  }
+
+  &_title {
+    @include flex-center(row);
+
+    font-family: $font-title;
+    gap: 10px;
+    width: 100%;
+    font-size: 2rem;
+    margin: 20px 0;
+    text-align: center;
+
+    span {
+      font-size: 4rem;
+      color: $primary-color;
+    }
+  }
+
+  &_list {
+    @include grid-layout(2);
+
+    gap: 20px;
+    margin-top: 20px;
+
+    &_item {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        max-width: 100%;
+        aspect-ratio: 4 / 2;
+        object-fit: cover;
+        transform: scale(1.4);
+
+        @include responsive(768px) {
+          aspect-ratio: 3 / 4;
+        }
+      }
+
+      &_title {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        z-index: 10;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+
+    @include responsive(768px) {
+      @include grid-layout(1);
+    }
+  }
+}
+
+// Footer
+.footer {
+  @include flex-center(column);
+
+  &_image {
+    @include flex-center();
+    margin: 20px 0;
+
+    img {
+      border-radius: 10px;
+      max-width: $max-width;
+      aspect-ratio: 6 / 2;
+      width: 100%;
+      object-fit: cover;
+
+      @include responsive(768px) {
+        aspect-ratio: 3 / 5;
+      }
+    }
+  }
+
+  &_content {
+    @include grid-layout(4);
+    width: 100%;
+    max-width: $max-width;
+    margin: 20px auto;
+
+    @include responsive(768px) {
+      @include grid-layout(1); // Cambiar a diseño de una sola columna
+      text-align: center; // Centrar contenido en pantallas pequeñas
+    }
+  }
+
+  &_links {
+    @include flex-center(column);
+    grid-column: span 2;
+    width: 100%;
+    text-transform: uppercase;
+
+    @include responsive(768px) {
+      align-items: start;
+    }
+
+    .links {
+      @include flex-center(row, space-around);
+      width: 100%;
+      margin: 1rem;
+
+      &_menu {
+        font-size: 1.4rem;
+      }
+
+      &_policy {
+        font-size: 0.7rem;
+      }
+
+      &_payment{
+        @include flex-center(row);
+        font-size: 0.7rem;
+      }
+
+
+      @include responsive(768px) {
+        flex-direction: column;
+        gap: 10px;
+        align-items: start;
+      }
+    }
+  }
+
+  &_social {
+    @include flex-center(column, space-between, end);
+    max-width: 100%;
+    font-size: 0.7rem;
+
+    @include responsive(768px) {
+      align-items: start;
+    }
+
+    .social {
+      &_input {
+        p {
+          @include flex-center();
+          text-align: center;
+        }
+
+        .input_container {
+          @include flex-center();
+          max-width: 100%;
+          background-color: $input-color;
+          border-radius: 5px;
+          padding: 2px;
+
+          @include responsive(768px) {
+            width: 100%;
+          }
+        }
+
+        input {
+          border: none;
+          background: transparent;
+          color: #ffffff;
+          padding: 0.5rem;
+          outline: none;
+
+          &::placeholder {
+            color: #aaa;
+          }
+        }
+
+        button {
+          background: none;
+          border: none;
+          color: $primary-color;
+          font-size: 1rem;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+
+      &_media {
+        @include flex-center(row, space-between);
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &_logo {
+    @include flex-center(column, space-between, start);
+    gap: 10px;
+    font-size: 0.7rem;
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    .divider {
+      width: 2px;
+      height: 1.5rem;
+      background-color: $primary-color;
+      display: inline-block;
+      margin: 0 0.5rem;
+    }
+
+    .text {
+      font-family: $font-title;
+      font-size: 1.4em;
+    }
+
+    .footer_credits {
+      font-size: 0.8rem;
+      text-align: start;
+
+      @include responsive(768px) {
+        text-align: center;
+      }
+    }
+  }
+}

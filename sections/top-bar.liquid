@@ -1,0 +1,11 @@
+<section class="top-bar">
+  <marquee behavior="scroll" direction="left" scrollamount="10" id="marquee"></marquee>
+  <script>
+    const marqueeText = `{{settings['hero-banner'].settings.topbar_text}}`;
+
+    const marqueeElement = document.getElementById('marquee');
+
+    const repeatCount = 20;
+    marqueeElement.innerHTML = Array(repeatCount).fill(marqueeText).join(' ');
+  </script>
+</section>

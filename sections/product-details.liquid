@@ -1,0 +1,86 @@
+<section class="product-details">
+  <div class="product-list-wrapper">
+    <div class="product-list">
+      {% for product in products %}
+        <div class="product-item" data-index="{{ forloop.index }}">
+          {% render 'product-card', product: product %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="button-container">
+    <button id="view-all-button" class="view-all-button">View All</button>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const productList = document.querySelector('.product-list');
+    const productItems = document.querySelectorAll('.product-item');
+    const viewAllButton = document.getElementById('view-all-button');
+
+    // Configuración del IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible'); // Añade la clase cuando entra en el viewport
+          }
+        });
+      },
+      { threshold: 0.1 } // Se activa cuando el 10% de la tarjeta está en el viewport
+    );
+
+    productItems.forEach((item) => {
+      observer.observe(item); // Observa cada tarjeta
+    });
+
+    function updateDesktopView() {
+      productItems.forEach((item, index) => {
+        if (index >= 4) {
+          item.style.display = 'none';
+          observer.unobserve(item); // Deja de observar las tarjetas ocultas
+        } else {
+          item.style.display = 'block';
+          observer.observe(item); // Reanuda la observación de las tarjetas visibles
+        }
+      });
+      viewAllButton.style.display = 'block';
+    }
+
+    function updateMobileView() {
+      productList.classList.add('carousel-mode');
+      productList.style.display = 'flex';
+      productList.style.overflowX = 'scroll';
+      productItems.forEach((item) => {
+        item.style.flex = '0 0 80%';
+        item.style.marginRight = '10px';
+        item.style.display = 'block';
+        observer.observe(item); // Observa las tarjetas en móvil
+      });
+      viewAllButton.style.display = 'none';
+    }
+
+    function handleResponsiveView() {
+      if (window.innerWidth <= 768) {
+        updateMobileView();
+      } else {
+        productList.classList.remove('carousel-mode');
+        productList.style.display = 'grid';
+        productList.style.overflowX = 'visible';
+        updateDesktopView();
+      }
+    }
+
+    viewAllButton.addEventListener('click', function () {
+      productItems.forEach((item) => {
+        item.style.display = 'block';
+        observer.observe(item); // Observa todas las tarjetas al mostrarlas
+      });
+      viewAllButton.style.display = 'none';
+    });
+
+    window.addEventListener('resize', handleResponsiveView);
+    handleResponsiveView();
+  });
+</script>

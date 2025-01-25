@@ -1,11 +1,23 @@
 <div class="product-card">
-  <h3>{{ product.title }}</h3>
-  <p>Price: ${{ product.price }}</p>
-  {% if product.tags %}
-    <ul>
-      {% for tag in product.tags %}
-        <li>{{ tag }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  <div class="product-card_image">
+    <img src="{{ product.image | img_url: 'large' }}" alt="{{ product.title }}">
+  </div>
+
+  <div class="product-card_content">
+    <div class="product-card_content_info">
+      <div class="product-card_content_info_tags">
+        {% for tag in product.tags %}
+          <div class="tag">{{ tag }}</div>
+        {% endfor %}
+      </div>
+      <h3 class="product-card_content_info_text">{{ product.title }}</h3>
+      <p class="product-card_content_info_text">${{ product.price }} USD</p>
+    </div>
+
+    <div class="product-card_content_cta">
+      <button onclick="window.location.href='{{ product.url }}'">
+        <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+      </button>
+    </div>
+  </div>
 </div>

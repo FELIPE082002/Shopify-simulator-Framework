@@ -1,0 +1,11 @@
+<section class="hero-banner-marquee">
+  <marquee behavior="scroll" direction="left" id="marqueeHero"></marquee>
+  <script>
+    const marqueeTextHero = `{{settings['hero-banner'].settings.marquee_text}}`;;
+
+    const marqueeElementHero = document.getElementById('marqueeHero');
+
+    const repeatCountHero = 30;
+    marqueeElementHero.innerHTML = Array(repeatCountHero).fill(marqueeTextHero).join(' ');
+  </script>
+</section>
