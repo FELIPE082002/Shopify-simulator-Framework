@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+
 // Variables
 $primary-color: #7a2cff;
 $secondary-color: #762bfb;
+$input-color: #232127;
 $background: #101010;
 $max-width: 1200px;
 $card-product-size: 220px;
 $card-collection-size: 220px;
+$font-title: 'Anton', sans-serif;
 
 // Mixins
 @mixin flex-center($direction: row, $justify: center, $align: center) {
@@ -203,6 +208,7 @@ a {
 .hero-banner-marquee {
   padding: 5px;
   text-transform: uppercase;
+  font-family: $font-title;
   font-size: 50px;
   font-weight: bolder;
 }
@@ -323,13 +329,15 @@ a {
 
   &_title {
     @include flex-center(row);
+
+    font-family: $font-title;
     gap: 10px;
     width: 100%;
     font-size: 2rem;
     margin: 20px 0;
     text-align: center;
 
-    span{
+    span {
       font-size: 4rem;
       color: $primary-color;
     }
@@ -362,6 +370,104 @@ a {
         text-transform: uppercase;
         font-weight: bold;
       }
+    }
+  }
+}
+
+// Footer
+.footer {
+  @include flex-center();
+
+  &_content {
+    @include grid-layout(4);
+    width: 100%;
+    max-width: $max-width;
+    margin: 20px auto;
+  }
+
+  &_links {
+    @include flex-center(column);
+    grid-column: span 2;
+    width: 100%;
+    text-transform: uppercase;
+
+    .links {
+      @include flex-center(row, space-around);
+      width: 100%;
+      margin: 1rem;
+
+      &_menu {
+        font-size: 1.4rem;
+      }
+
+      &_policy {
+        font-size: 0.7rem;
+      }
+
+      &_payment {
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  &_social {
+    @include flex-center(column, space-between, end);
+    max-width: 100%;
+    font-size: 0.7rem;
+
+    .social {
+
+      &_input {
+
+        p {
+          @include flex-center();
+        }
+
+        .input_container {
+          @include flex-center();
+          max-width: 100%;
+          background-color: $input-color;
+          border-radius: 5px;
+          padding: 2px;
+        }
+
+        input {
+          border: none;
+          background: transparent;
+          color: #ffffff;
+          padding: 0.5rem;
+          outline: none;
+
+          &::placeholder {
+            color: #aaa;
+          }
+        }
+
+        button {
+          background: none;
+          border: none;
+          color: $primary-color;
+          font-size: 1rem;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+
+      &_media {
+        @include flex-center(row, space-between);
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &_logo {
+    @include flex-center(column, space-between, start);
+    gap: 10px;
+    font-size: 0.7rem;
+
+    img {
+      height: 40px;
     }
   }
 }
