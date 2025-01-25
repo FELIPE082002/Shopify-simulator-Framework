@@ -75,12 +75,6 @@ a {
     background-color: rgb(30, 29, 32);
   }
 
-  &_link {
-    @include responsive(768px) {
-      display: none;
-    }
-  }
-
   &__content {
     @include grid-layout(3);
     align-items: center;
@@ -156,7 +150,7 @@ a {
     }
 
     @include responsive(768px) {
-      visibility: hidden; // Ocultar en pantallas pequeñas
+      visibility: hidden;
     }
   }
 
@@ -164,44 +158,19 @@ a {
     @include flex-center(row, flex-end);
     gap: 15px;
 
-    &--toggle {
-      display: none;
-    }
+    button {
+      @include button-style($secondary-color);
 
-    @include responsive(768px) {
-      flex-direction: column;
-      align-items: flex-end;
-
-      &--toggle {
-        display: block;
+      icon {
+        font-size: 20px;
+        color: #fff;
       }
     }
-  }
-
-  &__dropdown {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    background-color: rgb(30, 29, 32);
-    border: 1px solid #6c52fc;
-    border-radius: 5px;
-    z-index: 2000;
-    padding: 10px;
-    flex-direction: column;
-    gap: 10px;
 
     @include responsive(768px) {
-      display: none; // Ocultar por defecto
-    }
-
-    &--open {
-      display: flex;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: none;
+      a{
+        visibility: hidden;
+      }
     }
   }
 }
@@ -361,18 +330,28 @@ a {
   margin: 0 auto;
   position: relative;
 
-  .product-list {
-    @include grid-layout(4);
-    gap: 5px;
+  .product-list-wrapper {
+    overflow: hidden;
 
-    .product-item {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.5s ease, transform 0.2s ease;
+    .product-list {
+      @include grid-layout(4);
+      gap: 5px;
 
-      &.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .product-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.5s ease, transform 0.3s ease;
+
+        &.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+          flex: 0 0 80%;
+          margin-right: 10px;
+          scroll-snap-align: center;
+        }
       }
     }
   }
@@ -432,6 +411,10 @@ a {
         aspect-ratio: 4 / 2;
         object-fit: cover;
         transform: scale(1.4);
+
+        @include responsive(768px) {
+          aspect-ratio: 3 / 4;
+        }
       }
 
       &_title {
@@ -442,6 +425,10 @@ a {
         text-transform: uppercase;
         font-weight: bold;
       }
+    }
+
+    @include responsive(768px) {
+      @include grid-layout(1);
     }
   }
 }
@@ -457,9 +444,13 @@ a {
     img {
       border-radius: 10px;
       max-width: $max-width;
-      aspect-ratio: 6/2;
+      aspect-ratio: 6 / 2;
       width: 100%;
       object-fit: cover;
+
+      @include responsive(768px) {
+        aspect-ratio: 3 / 5;
+      }
     }
   }
 
@@ -468,6 +459,11 @@ a {
     width: 100%;
     max-width: $max-width;
     margin: 20px auto;
+
+    @include responsive(768px) {
+      @include grid-layout(1); // Cambiar a diseño de una sola columna
+      text-align: center; // Centrar contenido en pantallas pequeñas
+    }
   }
 
   &_links {
@@ -475,6 +471,10 @@ a {
     grid-column: span 2;
     width: 100%;
     text-transform: uppercase;
+
+    @include responsive(768px) {
+      align-items: start;
+    }
 
     .links {
       @include flex-center(row, space-around);
@@ -489,8 +489,16 @@ a {
         font-size: 0.7rem;
       }
 
-      &_payment {
+      &_payment{
+        @include flex-center(row);
         font-size: 0.7rem;
+      }
+
+
+      @include responsive(768px) {
+        flex-direction: column;
+        gap: 10px;
+        align-items: start;
       }
     }
   }
@@ -500,12 +508,15 @@ a {
     max-width: 100%;
     font-size: 0.7rem;
 
+    @include responsive(768px) {
+      align-items: start;
+    }
+
     .social {
-
       &_input {
-
         p {
           @include flex-center();
+          text-align: center;
         }
 
         .input_container {
@@ -514,6 +525,10 @@ a {
           background-color: $input-color;
           border-radius: 5px;
           padding: 2px;
+
+          @include responsive(768px) {
+            width: 100%;
+          }
         }
 
         input {
@@ -567,6 +582,15 @@ a {
     .text {
       font-family: $font-title;
       font-size: 1.4em;
+    }
+
+    .footer_credits {
+      font-size: 0.8rem;
+      text-align: start;
+
+      @include responsive(768px) {
+        text-align: center;
+      }
     }
   }
 }
